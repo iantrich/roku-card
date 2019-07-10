@@ -230,10 +230,12 @@ class RokuCard extends LitElement {
   }
 
   launchApp(e) {
-    this.hass.callService("media_player", "select_source", {
-      entity_id: this._config.entity,
-      source: e.currentTarget.value
-    });
+    if (e.currentTarget.value != "") {
+      this.hass.callService("media_player", "select_source", {
+        entity_id: this._config.entity,
+        source: e.currentTarget.value
+      });
+    }
   }
 
   handleActionClick(e) {
