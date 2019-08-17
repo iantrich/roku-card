@@ -45,31 +45,6 @@ class RokuCard extends LitElement {
       <ha-card .header="${this._config.name}">
         <div class="remote">
           <div class="row">
-            ${ stateObj.attributes.source_list ? 
-              html`
-            <paper-dropdown-menu
-              label="Input Source"
-              @value-changed="${this.launchApp}"
-            >
-              <paper-listbox
-                slot="dropdown-content"
-                .selected="${
-                  stateObj.attributes.source_list.indexOf(
-                    stateObj.attributes.source
-                  )
-                }"
-              >
-                ${
-                  stateObj.attributes.source_list.map(source => {
-                    return html`
-                      <paper-item>${source}</paper-item>
-                    `;
-                  })
-                }
-              </paper-listbox>
-            </paper-dropdown-menu>`
-            : ""
-            }
             ${
               this._config.tv || this._config.power
                 ? html`
