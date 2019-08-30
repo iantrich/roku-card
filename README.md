@@ -107,15 +107,29 @@ resources:
 Add a custom element in your `ui-lovelace.yaml`
 
 ```yaml
-      - type: custom:roku-card
-        entity: media_player.bedroom_tv
-        name: Bedroom TV
-        theme: darkpurple
-        tv: true
-        power:
-          service: switch.turn_on
-          service_data:
-            entity_id: switch.bedroom_tv_power
+type: 'custom:roku-card'
+entity: media_player.basement_roku
+tv: true
+apps:
+  - id: Netflix
+    icon: /local/netflix.webp
+  - id: Hulu
+    icon: /local/hulu.webp
+volume_up:
+  tap_action:
+    action: call-service
+    service: remote.send_command
+    service_data:
+      entity_id: remote.basement_roku
+      command: play
+volume_down:
+  dbltap_action:
+    action: call-service
+    service: remote.send_command
+    service_data:
+      entity_id: remote.basement_roku
+      command: play
+
 ```
 
 [Troubleshooting](https://github.com/thomasloven/hass-config/wiki/Lovelace-Plugins)
