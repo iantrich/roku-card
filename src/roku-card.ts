@@ -370,73 +370,90 @@ class RokuCard extends LitElement {
                 `}
           </div>
 
-          <div class="row">
-            ${this._config.volume_mute &&
-            this._config.volume_mute.show === false
-              ? html`
-                  <paper-icon-button></paper-icon-button>
-                `
-              : html`
-                  <paper-icon-button
-                    .button="${"volume_mute"}"
-                    icon="mdi:volume-mute"
-                    title="Volume Mute"
-                    @ha-click="${this._handleTap}"
-                    @ha-hold="${this._handleHold}"
-                    @ha-dblclick=${this._handleDblTap}
-                    .hasDblClick=${this._config.volume_mute &&
-                      this._config.volume_mute.dbltap_action &&
-                      this._config.volume_mute.dbltap_action.action !== "none"}
-                    .repeat=${this._config.volume_mute &&
-                      this._config.volume_mute.hold_action &&
-                      ifDefined(this._config.volume_mute.hold_action!.repeat)}
-                    .longpress=${longPress()}
-                  ></paper-icon-button>
-                `}
-            ${this._config.volume_down &&
-            this._config.volume_down.show === false
-              ? html`
-                  <paper-icon-button></paper-icon-button>
-                `
-              : html`
-                  <paper-icon-button
-                    .button="${"volume_down"}"
-                    icon="mdi:volume-minus"
-                    title="Volume Down"
-                    @ha-click="${this._handleTap}"
-                    @ha-hold="${this._handleHold}"
-                    @ha-dblclick=${this._handleDblTap}
-                    .hasDblClick=${this._config.volume_down &&
-                      this._config.volume_down.dbltap_action &&
-                      this._config.volume_down.dbltap_action.action !== "none"}
-                    .repeat=${this._config.volume_down &&
-                      this._config.volume_down.hold_action &&
-                      ifDefined(this._config.volume_down.hold_action.repeat)}
-                    .longpress=${longPress()}
-                  ></paper-icon-button>
-                `}
-            ${this._config.volume_up && this._config.volume_up.show === false
-              ? html`
-                  <paper-icon-button></paper-icon-button>
-                `
-              : html`
-                  <paper-icon-button
-                    .button="${"volume_up"}"
-                    icon="mdi:volume-plus"
-                    title="Volume Up"
-                    @ha-click="${this._handleTap}"
-                    @ha-hold="${this._handleHold}"
-                    @ha-dblclick=${this._handleDblTap}
-                    .hasDblClick=${this._config.volume_up &&
-                      this._config.volume_up.dbltap_action &&
-                      this._config.volume_up.dbltap_action.action !== "none"}
-                    .repeat=${this._config.volume_up &&
-                      this._config.volume_up.hold_action &&
-                      ifDefined(this._config.volume_up.hold_action.repeat)}
-                    .longpress=${longPress()}
-                  ></paper-icon-button>
-                `}
-          </div>
+          ${this._config.tv ||
+          (this._config.volume_mute && this._config.volume_mute.show) ||
+          (this._config.volume_down && this._config.volume_down.show) ||
+          (this._config.volume_up && this._config.volume_up.show)
+            ? html`
+                <div class="row">
+                  ${this._config.volume_mute &&
+                  this._config.volume_mute.show === false
+                    ? html`
+                        <paper-icon-button></paper-icon-button>
+                      `
+                    : html`
+                        <paper-icon-button
+                          .button="${"volume_mute"}"
+                          icon="mdi:volume-mute"
+                          title="Volume Mute"
+                          @ha-click="${this._handleTap}"
+                          @ha-hold="${this._handleHold}"
+                          @ha-dblclick=${this._handleDblTap}
+                          .hasDblClick=${this._config.volume_mute &&
+                            this._config.volume_mute.dbltap_action &&
+                            this._config.volume_mute.dbltap_action.action !==
+                              "none"}
+                          .repeat=${this._config.volume_mute &&
+                            this._config.volume_mute.hold_action &&
+                            ifDefined(
+                              this._config.volume_mute.hold_action!.repeat
+                            )}
+                          .longpress=${longPress()}
+                        ></paper-icon-button>
+                      `}
+                  ${this._config.volume_down &&
+                  this._config.volume_down.show === false
+                    ? html`
+                        <paper-icon-button></paper-icon-button>
+                      `
+                    : html`
+                        <paper-icon-button
+                          .button="${"volume_down"}"
+                          icon="mdi:volume-minus"
+                          title="Volume Down"
+                          @ha-click="${this._handleTap}"
+                          @ha-hold="${this._handleHold}"
+                          @ha-dblclick=${this._handleDblTap}
+                          .hasDblClick=${this._config.volume_down &&
+                            this._config.volume_down.dbltap_action &&
+                            this._config.volume_down.dbltap_action.action !==
+                              "none"}
+                          .repeat=${this._config.volume_down &&
+                            this._config.volume_down.hold_action &&
+                            ifDefined(
+                              this._config.volume_down.hold_action.repeat
+                            )}
+                          .longpress=${longPress()}
+                        ></paper-icon-button>
+                      `}
+                  ${this._config.volume_up &&
+                  this._config.volume_up.show === false
+                    ? html`
+                        <paper-icon-button></paper-icon-button>
+                      `
+                    : html`
+                        <paper-icon-button
+                          .button="${"volume_up"}"
+                          icon="mdi:volume-plus"
+                          title="Volume Up"
+                          @ha-click="${this._handleTap}"
+                          @ha-hold="${this._handleHold}"
+                          @ha-dblclick=${this._handleDblTap}
+                          .hasDblClick=${this._config.volume_up &&
+                            this._config.volume_up.dbltap_action &&
+                            this._config.volume_up.dbltap_action.action !==
+                              "none"}
+                          .repeat=${this._config.volume_up &&
+                            this._config.volume_up.hold_action &&
+                            ifDefined(
+                              this._config.volume_up.hold_action.repeat
+                            )}
+                          .longpress=${longPress()}
+                        ></paper-icon-button>
+                      `}
+                </div>
+              `
+            : ""}
         </div>
       </ha-card>
     `;
