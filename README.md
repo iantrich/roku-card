@@ -82,13 +82,12 @@ This card is for [Lovelace](https://www.home-assistant.io/lovelace) on [Home Ass
 
 ### Step 1
 
-Install `roku-card` by copying `dist/roku-card.js` and `dist/roku-card-editor.js` from this repo to `<config directory>/www/roku-card.js` on your Home Assistant instance.
+Install `roku-card` by copying `dist/roku-card.js` from this repo to `<config directory>/www/roku-card.js` on your Home Assistant instance.
 
 **Example:**
 
 ```bash
 wget https://raw.githubusercontent.com/custom-cards/roku-card/master/dist/roku-card.js
-wget https://raw.githubusercontent.com/custom-cards/roku-card/master/dist/roku-card-editor.js
 mv roku-card* /config/www/
 ```
 
