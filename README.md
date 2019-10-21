@@ -1,4 +1,4 @@
-# Roku Remote Card
+# Roku Remote Card by [@iantrich](https://www.github.com/iantrich)
 📺 Roku Remote Lovelace Card
 
 [![GitHub Release][releases-shield]][releases]
