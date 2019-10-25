@@ -3095,7 +3095,7 @@ const defaultRemoteAction = {
 };
 let RokuCard = class RokuCard extends LitElement {
     getCardSize() {
-        return 7;
+        return 8;
     }
     setConfig(config) {
         if (!config.entity) {
@@ -3506,6 +3506,41 @@ let RokuCard = class RokuCard extends LitElement {
                 </div>
               `
             : ""}
+          <div class="row">
+            ${this._config.apps && this._config.apps.length > 4
+            ? html `
+                  <img
+                    src="${this._config.apps[4].icon}"
+                    .app="${this._config.apps[4].id}"
+                    @click="${this.launchApp}"
+                  />
+                `
+            : html `
+                  <paper-icon-button></paper-icon-button>
+                `}
+            ${this._config.apps && this._config.apps.length > 5
+            ? html `
+                  <img
+                    src="${this._config.apps[5].icon}"
+                    .app="${this._config.apps[5].id}"
+                    @click="${this.launchApp}"
+                  />
+                `
+            : html `
+                  <paper-icon-button></paper-icon-button>
+                `}
+            ${this._config.apps && this._config.apps.length > 6
+            ? html `
+                  <img
+                    src="${this._config.apps[6].icon}"
+                    .app="${this._config.apps[6].id}"
+                    @click="${this.launchApp}"
+                  />
+                `
+            : html `
+                  <paper-icon-button></paper-icon-button>
+                `}
+          </div>
         </div>
       </ha-card>
     `;
