@@ -3093,9 +3093,24 @@ const defaultRemoteAction = {
     action: "call-service",
     service: "remote.send_command"
 };
+
 let RokuCard = class RokuCard extends LitElement {
     getCardSize() {
-        return 8;
+        if (this._config.apps.length < 5) {
+            return 7;
+        }
+        if (this._config.apps.length > 4 && this._config.apps.length < 8) {
+            return 8;
+        }
+        if (this._config.apps.length > 7 && this._config.apps.length < 11) {
+            return 9;
+        }
+        if (this._config.apps.length > 10 && this._config.apps.length < 14) {
+            return 10;
+        }
+        if (this._config.apps.length > 13 && this._config.apps.length < 17) {
+            return 11;
+        }
     }
     setConfig(config) {
         if (!config.entity) {
@@ -3506,41 +3521,174 @@ let RokuCard = class RokuCard extends LitElement {
                 </div>
               `
             : ""}
-          <div class="row">
-            ${this._config.apps && this._config.apps.length > 4
+          ${this._config.apps && this._config.apps.length > 4
             ? html `
-                  <img
-                    src="${this._config.apps[4].icon}"
-                    .app="${this._config.apps[4].id}"
-                    @click="${this.launchApp}"
-                  />
-                `
-            : html `
-                  <paper-icon-button></paper-icon-button>
-                `}
-            ${this._config.apps && this._config.apps.length > 5
-            ? html `
-                  <img
-                    src="${this._config.apps[5].icon}"
-                    .app="${this._config.apps[5].id}"
-                    @click="${this.launchApp}"
-                  />
-                `
-            : html `
-                  <paper-icon-button></paper-icon-button>
-                `}
-            ${this._config.apps && this._config.apps.length > 6
-            ? html `
-                  <img
-                    src="${this._config.apps[6].icon}"
-                    .app="${this._config.apps[6].id}"
-                    @click="${this.launchApp}"
-                  />
-                `
-            : html `
-                  <paper-icon-button></paper-icon-button>
-                `}
-          </div>
+                <div class="row">
+                ${this._config.apps && this._config.apps.length > 4
+                ? html `
+                    <img
+                        src="${this._config.apps[4].icon}"
+                        .app="${this._config.apps[4].id}"
+                        @click="${this.launchApp}"
+                    />
+                  `
+                    : html `
+                        <paper-icon-button></paper-icon-button>
+                      `
+                }
+                ${this._config.apps && this._config.apps.length > 5
+                ? html `
+                    <img
+                        src="${this._config.apps[5].icon}"
+                        .app="${this._config.apps[5].id}"
+                        @click="${this.launchApp}"
+                    />
+                  `
+                : html `
+                    <paper-icon-button></paper-icon-button>
+                  `
+                } 
+                ${this._config.apps && this._config.apps.length > 6
+                ? html `
+                    <img
+                        src="${this._config.apps[6].icon}"
+                        .app="${this._config.apps[6].id}"
+                        @click="${this.launchApp}"
+                    />
+                  `
+                : html `
+                    <paper-icon-button></paper-icon-button>
+                  `
+                }    
+                </div>
+              `
+            : ""}
+          ${this._config.apps && this._config.apps.length > 7
+                ? html`
+                <div class="row">
+                ${this._config.apps && this._config.apps.length > 7
+                        ? html`
+                    <img
+                        src="${this._config.apps[7].icon}"
+                        .app="${this._config.apps[7].id}"
+                        @click="${this.launchApp}"
+                    />
+                  `
+                        : html`
+                        <paper-icon-button></paper-icon-button>
+                      `
+                    }
+                ${this._config.apps && this._config.apps.length > 8
+                        ? html`
+                    <img
+                        src="${this._config.apps[8].icon}"
+                        .app="${this._config.apps[8].id}"
+                        @click="${this.launchApp}"
+                    />
+                  `
+                        : html`
+                    <paper-icon-button></paper-icon-button>
+                  `
+                    } 
+                ${this._config.apps && this._config.apps.length > 9
+                        ? html`
+                    <img
+                        src="${this._config.apps[9].icon}"
+                        .app="${this._config.apps[9].id}"
+                        @click="${this.launchApp}"
+                    />
+                  `
+                        : html`
+                    <paper-icon-button></paper-icon-button>
+                  `
+                    }    
+                </div>
+              `
+                : ""}
+          ${this._config.apps && this._config.apps.length > 10
+                ? html`
+                <div class="row">
+                ${this._config.apps && this._config.apps.length > 10
+                        ? html`
+                    <img
+                        src="${this._config.apps[10].icon}"
+                        .app="${this._config.apps[10].id}"
+                        @click="${this.launchApp}"
+                    />
+                  `
+                        : html`
+                        <paper-icon-button></paper-icon-button>
+                      `
+                    }
+                ${this._config.apps && this._config.apps.length > 11
+                        ? html`
+                    <img
+                        src="${this._config.apps[11].icon}"
+                        .app="${this._config.apps[11].id}"
+                        @click="${this.launchApp}"
+                    />
+                  `
+                        : html`
+                    <paper-icon-button></paper-icon-button>
+                  `
+                    } 
+                ${this._config.apps && this._config.apps.length > 12
+                        ? html`
+                    <img
+                        src="${this._config.apps[12].icon}"
+                        .app="${this._config.apps[12].id}"
+                        @click="${this.launchApp}"
+                    />
+                  `
+                        : html`
+                    <paper-icon-button></paper-icon-button>
+                  `
+                    }    
+                </div>
+              `
+                : ""}
+          ${this._config.apps && this._config.apps.length > 13
+                ? html`
+                <div class="row">
+                ${this._config.apps && this._config.apps.length > 13
+                        ? html`
+                    <img
+                        src="${this._config.apps[13].icon}"
+                        .app="${this._config.apps[13].id}"
+                        @click="${this.launchApp}"
+                    />
+                  `
+                        : html`
+                        <paper-icon-button></paper-icon-button>
+                      `
+                    }
+                ${this._config.apps && this._config.apps.length > 14
+                        ? html`
+                    <img
+                        src="${this._config.apps[14].icon}"
+                        .app="${this._config.apps[14].id}"
+                        @click="${this.launchApp}"
+                    />
+                  `
+                        : html`
+                    <paper-icon-button></paper-icon-button>
+                  `
+                    } 
+                ${this._config.apps && this._config.apps.length > 15
+                        ? html`
+                    <img
+                        src="${this._config.apps[15].icon}"
+                        .app="${this._config.apps[15].id}"
+                        @click="${this.launchApp}"
+                    />
+                  `
+                        : html`
+                    <paper-icon-button></paper-icon-button>
+                  `
+                    }    
+                </div>
+              `
+                : ""}
         </div>
       </ha-card>
     `;
