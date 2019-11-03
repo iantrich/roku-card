@@ -2548,37 +2548,6 @@ LitElement['finalized'] = true;
 LitElement.render = render$1;
 
 /**
- * @license
- * Copyright (c) 2018 The Polymer Project Authors. All rights reserved.
- * This code may only be used under the BSD style license found at
- * http://polymer.github.io/LICENSE.txt
- * The complete set of authors may be found at
- * http://polymer.github.io/AUTHORS.txt
- * The complete set of contributors may be found at
- * http://polymer.github.io/CONTRIBUTORS.txt
- * Code distributed by Google as part of the polymer project is also
- * subject to an additional IP rights grant found at
- * http://polymer.github.io/PATENTS.txt
- */
-/**
- * For AttributeParts, sets the attribute if the value is defined and removes
- * the attribute if the value is undefined.
- *
- * For other part types, this directive is a no-op.
- */
-const ifDefined = directive((value) => (part) => {
-    if (value === undefined && part instanceof AttributePart) {
-        if (value !== part.value) {
-            const name = part.committer.name;
-            part.committer.element.removeAttribute(name);
-        }
-    }
-    else {
-        part.setValue(value);
-    }
-});
-
-/**
  * Parse or format dates
  * @class fecha
  */
@@ -2905,46 +2874,39 @@ fecha.parse = function (dateStr, format, i18nSettings) {
   return date;
 };
 
-var a=function(){try{(new Date).toLocaleDateString("i");}catch(e){return "RangeError"===e.name}return !1}()?function(e,t){return e.toLocaleDateString(t,{year:"numeric",month:"long",day:"numeric"})}:function(t){return fecha.format(t,"mediumDate")},n=function(){try{(new Date).toLocaleString("i");}catch(e){return "RangeError"===e.name}return !1}()?function(e,t){return e.toLocaleString(t,{year:"numeric",month:"long",day:"numeric",hour:"numeric",minute:"2-digit"})}:function(t){return fecha.format(t,"haDateTime")},r=function(){try{(new Date).toLocaleTimeString("i");}catch(e){return "RangeError"===e.name}return !1}()?function(e,t){return e.toLocaleTimeString(t,{hour:"numeric",minute:"2-digit"})}:function(t){return fecha.format(t,"shortTime")};var h=function(e,t,a,n){void 0===n&&(n=!1),e._themes||(e._themes={});var r=t.default_theme;("default"===a||a&&t.themes[a])&&(r=a);var i=Object.assign({},e._themes);if("default"!==r){var o=t.themes[r];Object.keys(o).forEach(function(t){var a="--"+t;e._themes[a]="",i[a]=o[t];});}if(e.updateStyles?e.updateStyles(i):window.ShadyCSS&&window.ShadyCSS.styleSubtree(e,i),n){var s=document.querySelector("meta[name=theme-color]");if(s){s.hasAttribute("default-content")||s.setAttribute("default-content",s.getAttribute("content"));var c=i["--primary-color"]||s.getAttribute("default-content");s.setAttribute("content",c);}}};function d(e){return e.substr(0,e.indexOf("."))}var S=["closed","locked","off"],L=function(e,t,a,n){n=n||{},a=null==a?{}:a;var r=new Event(t,{bubbles:void 0===n.bubbles||n.bubbles,cancelable:Boolean(n.cancelable),composed:void 0===n.composed||n.composed});return r.detail=a,e.dispatchEvent(r),r};var A=function(e,t){L(e,"haptic",t);},O=function(e,t,a){void 0===a&&(a=!1),a?history.replaceState(null,"",t):history.pushState(null,"",t),L(window,"location-changed",{replace:a});},j=function(e,t,a){void 0===a&&(a=!0);var n,r=d(t),i="group"===r?"homeassistant":r;switch(r){case"lock":n=a?"unlock":"lock";break;case"cover":n=a?"open_cover":"close_cover";break;default:n=a?"turn_on":"turn_off";}return e.callService(i,n,{entity_id:t})},z=function(e,t){var a=S.includes(e.states[t].state);return j(e,t,a)},P=function(e,t,a,n,r){var i;switch(r&&a.dbltap_action?i=a.dbltap_action:n&&a.hold_action?i=a.hold_action:!n&&a.tap_action&&(i=a.tap_action),i||(i={action:"more-info"}),i.action){case"more-info":(a.entity||a.camera_image)&&(L(e,"hass-more-info",{entityId:i.entity?i.entity:a.entity?a.entity:a.camera_image}),i.haptic&&A(e,i.haptic));break;case"navigate":i.navigation_path&&(O(0,i.navigation_path),i.haptic&&A(e,i.haptic));break;case"url":i.url&&window.open(i.url),i.haptic&&A(e,i.haptic);break;case"toggle":a.entity&&(z(t,a.entity),i.haptic&&A(e,i.haptic));break;case"call-service":if(!i.service)return;var o=i.service.split(".",2),s=o[0],c=o[1],u=Object.assign({},i.service_data);"entity"===u.entity_id&&(u.entity_id=a.entity),t.callService(s,c,u),i.haptic&&A(e,i.haptic);}};String(Math.random()).slice(2);try{const e={get capture(){return !1}};window.addEventListener("test",e,e),window.removeEventListener("test",e,e);}catch(e){}(window.litHtmlVersions||(window.litHtmlVersions=[])).push("1.0.0");var H="ontouchstart"in window||navigator.maxTouchPoints>0||navigator.msMaxTouchPoints>0,N=function(e){function t(){e.call(this),this.holdTime=500,this.ripple=document.createElement("paper-ripple"),this.timer=void 0,this.held=!1,this.cooldownStart=!1,this.cooldownEnd=!1,this.nbClicks=0;}return e&&(t.__proto__=e),(t.prototype=Object.create(e&&e.prototype)).constructor=t,t.prototype.connectedCallback=function(){var e=this;Object.assign(this.style,{borderRadius:"50%",position:"absolute",width:H?"100px":"50px",height:H?"100px":"50px",transform:"translate(-50%, -50%)",pointerEvents:"none"}),this.appendChild(this.ripple),this.ripple.style.color="#03a9f4",this.ripple.style.color="var(--primary-color)",["touchcancel","mouseout","mouseup","touchmove","mousewheel","wheel","scroll"].forEach(function(t){document.addEventListener(t,function(){clearTimeout(e.timer),e.stopAnimation(),e.timer=void 0;},{passive:!0});});},t.prototype.bind=function(e){var t=this;if(!e.longPress){e.longPress=!0,e.addEventListener("contextmenu",function(e){var t=e||window.event;return t.preventDefault&&t.preventDefault(),t.stopPropagation&&t.stopPropagation(),t.cancelBubble=!0,t.returnValue=!1,!1});var a=function(a){var n,r;t.cooldownStart||(t.held=!1,a.touches?(n=a.touches[0].pageX,r=a.touches[0].pageY):(n=a.pageX,r=a.pageY),t.timer=window.setTimeout(function(){t.startAnimation(n,r),t.held=!0,e.repeat&&!e.isRepeating&&(e.isRepeating=!0,t.repeatTimeout=setInterval(function(){e.dispatchEvent(new Event("ha-hold"));},e.repeat));},t.holdTime),t.cooldownStart=!0,window.setTimeout(function(){return t.cooldownStart=!1},100));},n=function(a){t.cooldownEnd||["touchend","touchcancel"].includes(a.type)&&void 0===t.timer?e.isRepeating&&t.repeatTimeout&&(clearInterval(t.repeatTimeout),e.isRepeating=!1):(clearTimeout(t.timer),e.isRepeating&&t.repeatTimeout&&clearInterval(t.repeatTimeout),e.isRepeating=!1,t.stopAnimation(),t.timer=void 0,t.held?e.repeat||e.dispatchEvent(new Event("ha-hold")):e.hasDblClick?0===t.nbClicks?(t.nbClicks+=1,t.dblClickTimeout=window.setTimeout(function(){1===t.nbClicks&&(t.nbClicks=0,e.dispatchEvent(new Event("ha-click")));},250)):(t.nbClicks=0,clearTimeout(t.dblClickTimeout),e.dispatchEvent(new Event("ha-dblclick"))):e.dispatchEvent(new Event("ha-click")),t.cooldownEnd=!0,window.setTimeout(function(){return t.cooldownEnd=!1},100));};e.addEventListener("touchstart",a,{passive:!0}),e.addEventListener("touchend",n),e.addEventListener("touchcancel",n),e.addEventListener("mousedown",a,{passive:!0}),e.addEventListener("click",n);}},t.prototype.startAnimation=function(e,t){Object.assign(this.style,{left:e+"px",top:t+"px",display:null}),this.ripple.holdDown=!0,this.ripple.simulatedRipple();},t.prototype.stopAnimation=function(){this.ripple.holdDown=!1,this.style.display="none";},t}(HTMLElement);customElements.get("long-press-custom-card-helpers")||customElements.define("long-press-custom-card-helpers",N);
+var a=function(){try{(new Date).toLocaleDateString("i");}catch(e){return "RangeError"===e.name}return !1}()?function(e,t){return e.toLocaleDateString(t,{year:"numeric",month:"long",day:"numeric"})}:function(t){return fecha.format(t,"mediumDate")},n=function(){try{(new Date).toLocaleString("i");}catch(e){return "RangeError"===e.name}return !1}()?function(e,t){return e.toLocaleString(t,{year:"numeric",month:"long",day:"numeric",hour:"numeric",minute:"2-digit"})}:function(t){return fecha.format(t,"haDateTime")},r=function(){try{(new Date).toLocaleTimeString("i");}catch(e){return "RangeError"===e.name}return !1}()?function(e,t){return e.toLocaleTimeString(t,{hour:"numeric",minute:"2-digit"})}:function(t){return fecha.format(t,"shortTime")};var m=function(e,t,a,n){void 0===n&&(n=!1),e._themes||(e._themes={});var r=t.default_theme;("default"===a||a&&t.themes[a])&&(r=a);var i=Object.assign({},e._themes);if("default"!==r){var o=t.themes[r];Object.keys(o).forEach(function(t){var a="--"+t;e._themes[a]="",i[a]=o[t];});}if(e.updateStyles?e.updateStyles(i):window.ShadyCSS&&window.ShadyCSS.styleSubtree(e,i),n){var s=document.querySelector("meta[name=theme-color]");if(s){s.hasAttribute("default-content")||s.setAttribute("default-content",s.getAttribute("content"));var c=i["--primary-color"]||s.getAttribute("default-content");s.setAttribute("content",c);}}};function f(e){return e.substr(0,e.indexOf("."))}var E=["closed","locked","off"],A=function(e,t,a,n){n=n||{},a=null==a?{}:a;var r=new Event(t,{bubbles:void 0===n.bubbles||n.bubbles,cancelable:Boolean(n.cancelable),composed:void 0===n.composed||n.composed});return r.detail=a,e.dispatchEvent(r),r};var F=function(e){A(window,"haptic",e);},B=function(e,t,a){void 0===a&&(a=!1),a?history.replaceState(null,"",t):history.pushState(null,"",t),A(window,"location-changed",{replace:a});},U=function(e,t,a){void 0===a&&(a=!0);var n,r=f(t),i="group"===r?"homeassistant":r;switch(r){case"lock":n=a?"unlock":"lock";break;case"cover":n=a?"open_cover":"close_cover";break;default:n=a?"turn_on":"turn_off";}return e.callService(i,n,{entity_id:t})},V=function(e,t){var a=E.includes(e.states[t].state);return U(e,t,a)},W=function(e,t,a,n){var r;if("double_tap"===n&&a.double_tap_action?r=a.double_tap_action:"hold"===n&&a.hold_action?r=a.hold_action:"tap"===n&&a.tap_action&&(r=a.tap_action),r||(r={action:"more-info"}),!r.confirmation||r.confirmation.exemptions&&r.confirmation.exemptions.some(function(e){return e.user===t.user.id})||(F("warning"),confirm(r.confirmation.text||"Are you sure you want to "+r.action+"?")))switch(r.action){case"more-info":(a.entity||a.camera_image)&&A(e,"hass-more-info",{entityId:a.entity?a.entity:a.camera_image});break;case"navigate":r.navigation_path&&B(0,r.navigation_path);break;case"url":r.url_path&&window.open(r.url_path);break;case"toggle":a.entity&&(V(t,a.entity),F("success"));break;case"call-service":if(!r.service)return void F("failure");var i=r.service.split(".",2);t.callService(i[0],i[1],r.service_data),F("success");}};function G(e){return void 0!==e&&"none"!==e.action}
 
-// See https://github.com/home-assistant/home-assistant-polymer/pull/2457
-// on how to undo mwc -> paper migration
-// import '@material/mwc-ripple';
-const isTouch = 'ontouchstart' in window
-    || navigator.maxTouchPoints > 0
-    || navigator.msMaxTouchPoints > 0;
-class LongPress extends HTMLElement {
+const isTouch = "ontouchstart" in window ||
+    navigator.maxTouchPoints > 0 ||
+    navigator.msMaxTouchPoints > 0;
+class ActionHandler extends HTMLElement {
     constructor() {
         super();
         this.holdTime = 500;
-        this.ripple = document.createElement('paper-ripple');
+        this.ripple = document.createElement("mwc-ripple");
         this.timer = undefined;
         this.held = false;
         this.cooldownStart = false;
         this.cooldownEnd = false;
-        this.nbClicks = 0;
     }
     connectedCallback() {
         Object.assign(this.style, {
-            borderRadius: '50%',
-            position: 'absolute',
-            width: isTouch ? '100px' : '50px',
-            height: isTouch ? '100px' : '50px',
-            transform: 'translate(-50%, -50%)',
-            pointerEvents: 'none',
+            position: "absolute",
+            width: isTouch ? "100px" : "50px",
+            height: isTouch ? "100px" : "50px",
+            transform: "translate(-50%, -50%)",
+            pointerEvents: "none",
         });
         this.appendChild(this.ripple);
-        this.ripple.style.color = '#03a9f4'; // paper-ripple
-        this.ripple.style.color = 'var(--primary-color)'; // paper-ripple
-        // this.ripple.primary = true;
+        this.ripple.primary = true;
         [
-            'touchcancel',
-            'mouseout',
-            'mouseup',
-            'touchmove',
-            'mousewheel',
-            'wheel',
-            'scroll',
+            "touchcancel",
+            "mouseout",
+            "mouseup",
+            "touchmove",
+            "mousewheel",
+            "wheel",
+            "scroll",
         ].forEach((ev) => {
             document.addEventListener(ev, () => {
                 clearTimeout(this.timer);
@@ -2953,13 +2915,12 @@ class LongPress extends HTMLElement {
             }, { passive: true });
         });
     }
-    bind(element) {
-        /* eslint no-param-reassign: 0 */
-        if (element.longPress) {
+    bind(element, options) {
+        if (element.actionHandler) {
             return;
         }
-        element.longPress = true;
-        element.addEventListener('contextmenu', (ev) => {
+        element.actionHandler = true;
+        element.addEventListener("contextmenu", (ev) => {
             const e = ev || window.event;
             if (e.preventDefault) {
                 e.preventDefault();
@@ -2986,68 +2947,56 @@ class LongPress extends HTMLElement {
                 x = ev.pageX;
                 y = ev.pageY;
             }
-            this.timer = window.setTimeout(() => {
-                this.startAnimation(x, y);
-                this.held = true;
-                if (element.repeat && !element.isRepeating) {
-                    element.isRepeating = true;
-                    this.repeatTimeout = setInterval(() => {
-                        element.dispatchEvent(new Event('ha-hold'));
-                    }, element.repeat);
-                }
-            }, this.holdTime);
+            if (options.hasHold) {
+                this.timer = window.setTimeout(() => {
+                    this.startAnimation(x, y);
+                    this.held = true;
+                }, this.holdTime);
+            }
             this.cooldownStart = true;
             window.setTimeout(() => (this.cooldownStart = false), 100);
         };
         const clickEnd = (ev) => {
-            if (this.cooldownEnd
-                || (['touchend', 'touchcancel'].includes(ev.type)
-                    && this.timer === undefined)) {
-                if (element.isRepeating && this.repeatTimeout) {
-                    clearInterval(this.repeatTimeout);
-                    element.isRepeating = false;
-                }
+            if (this.cooldownEnd ||
+                (["touchend", "touchcancel"].includes(ev.type) &&
+                    this.timer === undefined)) {
                 return;
             }
             clearTimeout(this.timer);
-            if (element.isRepeating && this.repeatTimeout) {
-                clearInterval(this.repeatTimeout);
-            }
-            element.isRepeating = false;
             this.stopAnimation();
             this.timer = undefined;
             if (this.held) {
-                if (!element.repeat) {
-                    element.dispatchEvent(new Event('ha-hold'));
-                }
+                A(element, "action", { action: "hold" });
             }
-            else if (element.hasDblClick) {
-                if (this.nbClicks === 0) {
-                    this.nbClicks += 1;
+            else if (options.hasDoubleTap) {
+                if (ev.detail === 1) {
                     this.dblClickTimeout = window.setTimeout(() => {
-                        if (this.nbClicks === 1) {
-                            this.nbClicks = 0;
-                            element.dispatchEvent(new Event('ha-click'));
-                        }
+                        A(element, "action", { action: "tap" });
                     }, 250);
                 }
                 else {
-                    this.nbClicks = 0;
                     clearTimeout(this.dblClickTimeout);
-                    element.dispatchEvent(new Event('ha-dblclick'));
+                    A(element, "action", { action: "double_tap" });
                 }
             }
             else {
-                element.dispatchEvent(new Event('ha-click'));
+                A(element, "action", { action: "tap" });
             }
             this.cooldownEnd = true;
             window.setTimeout(() => (this.cooldownEnd = false), 100);
         };
-        element.addEventListener('touchstart', clickStart, { passive: true });
-        element.addEventListener('touchend', clickEnd);
-        element.addEventListener('touchcancel', clickEnd);
-        element.addEventListener('mousedown', clickStart, { passive: true });
-        element.addEventListener('click', clickEnd);
+        element.addEventListener("touchstart", clickStart, { passive: true });
+        element.addEventListener("touchend", clickEnd);
+        element.addEventListener("touchcancel", clickEnd);
+        // iOS 13 sends a complete normal touchstart-touchend series of events followed by a mousedown-click series.
+        // That might be a bug, but until it's fixed, this should make action-handler work.
+        // If it's not a bug that is fixed, this might need updating with the next iOS version.
+        // Note that all events (both touch and mouse) must be listened for in order to work on computers with both mouse and touchscreen.
+        const isIOS13 = window.navigator.userAgent.match(/iPhone OS 13_/);
+        if (!isIOS13) {
+            element.addEventListener("mousedown", clickStart, { passive: true });
+            element.addEventListener("click", clickEnd);
+        }
     }
     startAnimation(x, y) {
         Object.assign(this.style, {
@@ -3055,38 +3004,35 @@ class LongPress extends HTMLElement {
             top: `${y}px`,
             display: null,
         });
-        this.ripple.holdDown = true; // paper-ripple
-        this.ripple.simulatedRipple(); // paper-ripple
-        // this.ripple.disabled = false;
-        // this.ripple.active = true;
-        // this.ripple.unbounded = true;
+        this.ripple.disabled = false;
+        this.ripple.active = true;
+        this.ripple.unbounded = true;
     }
     stopAnimation() {
-        this.ripple.holdDown = false; // paper-ripple
-        // this.ripple.active = false;
-        // this.ripple.disabled = true;
-        this.style.display = 'none';
+        this.ripple.active = false;
+        this.ripple.disabled = true;
+        this.style.display = "none";
     }
 }
-customElements.define('long-press-roku-card', LongPress);
-const getLongPress = () => {
+customElements.define("action-handler-roku", ActionHandler);
+const geActionHandler = () => {
     const body = document.body;
-    if (body.querySelector('long-press-roku-card')) {
-        return body.querySelector('long-press-roku-card');
+    if (body.querySelector("action-handler-roku")) {
+        return body.querySelector("action-handler-roku");
     }
-    const longpress = document.createElement('long-press-roku-card');
-    body.appendChild(longpress);
-    return longpress;
+    const actionhandler = document.createElement("action-handler-roku");
+    body.appendChild(actionhandler);
+    return actionhandler;
 };
-const longPressBind = (element) => {
-    const longpress = getLongPress();
-    if (!longpress) {
+const actionHandlerBind = (element, options) => {
+    const actionhandler = geActionHandler();
+    if (!actionhandler) {
         return;
     }
-    longpress.bind(element);
+    actionhandler.bind(element, options);
 };
-const longPress = directive(() => (part) => {
-    longPressBind(part.committer.element);
+const actionHandler = directive((options = {}) => (part) => {
+    actionHandlerBind(part.committer.element, options);
 });
 
 const defaultRemoteAction = {
@@ -3109,323 +3055,50 @@ let RokuCard = class RokuCard extends LitElement {
             return html ``;
         }
         const stateObj = this.hass.states[this._config.entity];
+        if (!stateObj) {
+            return html `
+        <ha-card>
+          <div class="warning">Show Warning</div>
+        </ha-card>
+      `;
+        }
         return html `
       <ha-card .header="${this._config.name}">
         <div class="remote">
           <div class="row">
+            <div class="app">${stateObj.attributes.app_name}</div>
             ${this._config.tv || (this._config.power && this._config.power.show)
-            ? html `
-                  <paper-icon-button
-                    .button="${"power"}"
-                    icon="mdi:power"
-                    title="Power"
-                    @ha-click="${this._handleTap}"
-                    @ha-hold="${this._handleHold}"
-                    @ha-dblclick=${this._handleDblTap}
-                    .hasDblClick=${this._config.power &&
-                this._config.power.dbltap_action &&
-                this._config.power.dbltap_action.action !== "none"}
-                    .repeat=${this._config.power &&
-                this._config.power.hold_action &&
-                ifDefined(this._config.power.hold_action.repeat)}
-                    .longpress=${longPress()}
-                  ></paper-icon-button>
-                `
+            ? this._renderButton("power", "mdi:power", "Power")
             : ""}
           </div>
           <div class="row">
-            ${this._config.back && this._config.back.show === false
-            ? html `
-                  <paper-icon-button></paper-icon-button>
-                `
-            : html `
-                  <paper-icon-button
-                    .button="${"back"}"
-                    icon="mdi:arrow-left"
-                    title="Back"
-                    @ha-click="${this._handleTap}"
-                    @ha-hold="${this._handleHold}"
-                    @ha-dblclick=${this._handleDblTap}
-                    .hasDblClick=${this._config.back &&
-                this._config.back.dbltap_action &&
-                this._config.back.dbltap_action.action !== "none"}
-                    .repeat=${this._config.back &&
-                this._config.back.hold_action &&
-                ifDefined(this._config.back.hold_action.repeat)}
-                    .longpress=${longPress()}
-                  ></paper-icon-button>
-                `}
-            ${this._config.info && this._config.info.show === false
-            ? html `
-                  <paper-icon-button></paper-icon-button>
-                `
-            : html `
-                  <paper-icon-button
-                    .button="${"info"}"
-                    icon="mdi:asterisk"
-                    title="Info"
-                    @ha-click="${this._handleTap}"
-                    @ha-hold="${this._handleHold}"
-                    @ha-dblclick=${this._handleDblTap}
-                    .hasDblClick=${this._config.info &&
-                this._config.info.dbltap_action &&
-                this._config.info.dbltap_action.action !== "none"}
-                    .repeat=${this._config.info &&
-                this._config.info.hold_action &&
-                ifDefined(this._config.info.hold_action.repeat)}
-                    .longpress=${longPress()}
-                  ></paper-icon-button>
-                `}
-            ${this._config.home && this._config.home.show === false
-            ? html `
-                  <paper-icon-button></paper-icon-button>
-                `
-            : html `
-                  <paper-icon-button
-                    .button="${"home"}"
-                    icon="mdi:home"
-                    title="Home"
-                    @ha-click="${this._handleTap}"
-                    @ha-hold="${this._handleHold}"
-                    @ha-dblclick=${this._handleDblTap}
-                    .hasDblClick=${this._config.home &&
-                this._config.home.dbltap_action &&
-                this._config.home.dbltap_action.action !== "none"}
-                    .repeat=${this._config.home &&
-                this._config.home.hold_action &&
-                ifDefined(this._config.home.hold_action.repeat)}
-                    .longpress=${longPress()}
-                  ></paper-icon-button>
-                `}
+            ${this._renderButton("back", "mdi:arrow-left", "Back")}
+            ${this._renderButton("info", "mdi:asterisk", "Info")}
+            ${this._renderButton("home", "mdi:home", "Home")}
           </div>
 
           <div class="row">
-            ${this._config.apps && this._config.apps.length > 0
-            ? html `
-                  <img
-                    src="${this._config.apps[0].icon}"
-                    .app="${this._config.apps[0].id}"
-                    @click="${this.launchApp}"
-                  />
-                `
-            : html `
-                  <paper-icon-button></paper-icon-button>
-                `}
-            ${this._config.up && this._config.up.show === false
-            ? html `
-                  <paper-icon-button></paper-icon-button>
-                `
-            : html `
-                  <paper-icon-button
-                    class="diagonal"
-                    .button="${"up"}"
-                    icon="mdi:chevron-up"
-                    title="Up"
-                    @ha-click="${this._handleTap}"
-                    @ha-hold="${this._handleHold}"
-                    @ha-dblclick=${this._handleDblTap}
-                    .hasDblClick=${this._config.up &&
-                this._config.up.dbltap_action &&
-                this._config.up.dbltap_action.action !== "none"}
-                    .repeat=${this._config.up &&
-                this._config.up.hold_action &&
-                ifDefined(this._config.up.hold_action.repeat)}
-                    .longpress=${longPress()}
-                  ></paper-icon-button>
-                `}
-            ${this._config.apps && this._config.apps.length > 1
-            ? html `
-                  <img
-                    src="${this._config.apps[1].icon}"
-                    .app="${this._config.apps[1].id}"
-                    @click="${this.launchApp}"
-                  />
-                `
-            : html `
-                  <paper-icon-button></paper-icon-button>
-                `}
+            ${this._renderImage(0)}
+            ${this._renderButton("up", "mdi:chevron-up", "Up")}
+            ${this._renderImage(1)}
           </div>
 
           <div class="row">
-            ${this._config.left && this._config.left.show === false
-            ? html `
-                  <paper-icon-button></paper-icon-button>
-                `
-            : html `
-                  <paper-icon-button
-                    class="diagonal"
-                    .button="${"left"}"
-                    icon="mdi:chevron-left"
-                    title="Left"
-                    @ha-click="${this._handleTap}"
-                    @ha-hold="${this._handleHold}"
-                    @ha-dblclick=${this._handleDblTap}
-                    .hasDblClick=${this._config.left &&
-                this._config.left.dbltap_action &&
-                this._config.left.dbltap_action.action !== "none"}
-                    .repeat=${this._config.left &&
-                this._config.left.hold_action &&
-                ifDefined(this._config.left.hold_action.repeat)}
-                    .longpress=${longPress()}
-                  ></paper-icon-button>
-                `}
-            ${this._config.select && this._config.select.show === false
-            ? html `
-                  <paper-icon-button></paper-icon-button>
-                `
-            : html `
-                  <paper-icon-button
-                    class="diagonal"
-                    .button="${"select"}"
-                    icon="mdi:checkbox-blank-circle"
-                    title="Select"
-                    @ha-click="${this._handleTap}"
-                    @ha-hold="${this._handleHold}"
-                    @ha-dblclick=${this._handleDblTap}
-                    .hasDblClick=${this._config.select &&
-                this._config.select.dbltap_action &&
-                this._config.select.dbltap_action.action !== "none"}
-                    .repeat=${this._config.select &&
-                this._config.select.hold_action &&
-                ifDefined(this._config.select.hold_action.repeat)}
-                    .longpress=${longPress()}
-                  ></paper-icon-button>
-                `}
-            ${this._config.right && this._config.right.show === false
-            ? html `
-                  <paper-icon-button></paper-icon-button>
-                `
-            : html `
-                  <paper-icon-button
-                    class="diagonal"
-                    .button="${"right"}"
-                    icon="mdi:chevron-right"
-                    title="Right"
-                    @ha-click="${this._handleTap}"
-                    @ha-hold="${this._handleHold}"
-                    @ha-dblclick=${this._handleDblTap}
-                    .hasDblClick=${this._config.right &&
-                this._config.right.dbltap_action &&
-                this._config.right.dbltap_action.action !== "none"}
-                    .repeat=${this._config.right &&
-                this._config.right.hold_action &&
-                ifDefined(this._config.right.hold_action.repeat)}
-                    .longpress=${longPress()}
-                  ></paper-icon-button>
-                `}
+            ${this._renderButton("left", "mdi:chevron-left", "Left")}
+            ${this._renderButton("select", "mdi:checkbox-blank-circle", "Select")}
+            ${this._renderButton("right", "mdi:chevron-right", "Right")}
           </div>
 
           <div class="row">
-            ${this._config.apps && this._config.apps.length > 2
-            ? html `
-                  <img
-                    src="${this._config.apps[2].icon}"
-                    .app="${this._config.apps[2].id}"
-                    @click="${this.launchApp}"
-                  />
-                `
-            : html `
-                  <paper-icon-button></paper-icon-button>
-                `}
-            ${this._config.down && this._config.down.show === false
-            ? html `
-                  <paper-icon-button></paper-icon-button>
-                `
-            : html `
-                  <paper-icon-button
-                    class="diagonal"
-                    .button="${"down"}"
-                    icon="mdi:chevron-down"
-                    title="Down"
-                    @ha-click="${this._handleTap}"
-                    @ha-hold="${this._handleHold}"
-                    @ha-dblclick=${this._handleDblTap}
-                    .hasDblClick=${this._config.down &&
-                this._config.down.dbltap_action &&
-                this._config.down.dbltap_action.action !== "none"}
-                    .repeat=${this._config.down &&
-                this._config.down.hold_action &&
-                ifDefined(this._config.down.hold_action.repeat)}
-                    .longpress=${longPress()}
-                  ></paper-icon-button>
-                `}
-            ${this._config.apps && this._config.apps.length > 3
-            ? html `
-                  <img
-                    src="${this._config.apps[3].icon}"
-                    .app="${this._config.apps[3].id}"
-                    @click="${this.launchApp}"
-                  />
-                `
-            : html `
-                  <paper-icon-button></paper-icon-button>
-                `}
+            ${this._renderImage(2)}
+            ${this._renderButton("down", "mdi:chevron-down", "Down")}
+            ${this._renderImage(3)}
           </div>
 
           <div class="row">
-            ${this._config.reverse && this._config.reverse.show === false
-            ? html `
-                  <paper-icon-button></paper-icon-button>
-                `
-            : html `
-                  <paper-icon-button
-                    .button="${"reverse"}"
-                    icon="mdi:rewind"
-                    title="Rewind"
-                    @ha-click="${this._handleTap}"
-                    @ha-hold="${this._handleHold}"
-                    @ha-dblclick=${this._handleDblTap}
-                    .hasDblClick=${this._config.reverse &&
-                this._config.reverse.dbltap_action &&
-                this._config.reverse.dbltap_action.action !== "none"}
-                    .repeat=${this._config.reverse &&
-                this._config.reverse.hold_action &&
-                ifDefined(this._config.reverse.hold_action.repeat)}
-                    .longpress=${longPress()}
-                  ></paper-icon-button>
-                `}
-            ${this._config.play && this._config.play.show === false
-            ? html `
-                  <paper-icon-button></paper-icon-button>
-                `
-            : html `
-                  <paper-icon-button
-                    .button="${"play"}"
-                    icon="mdi:play-pause"
-                    title="Play/Pause"
-                    @ha-click="${this._handleTap}"
-                    @ha-hold="${this._handleHold}"
-                    @ha-dblclick=${this._handleDblTap}
-                    .hasDblClick=${this._config.play &&
-                this._config.play.dbltap_action &&
-                this._config.play.dbltap_action.action !== "none"}
-                    .repeat=${this._config.play &&
-                this._config.play.hold_action &&
-                ifDefined(this._config.play.hold_action.repeat)}
-                    .longpress=${longPress()}
-                  ></paper-icon-button>
-                `}
-            ${this._config.forward && this._config.forward.show === false
-            ? html `
-                  <paper-icon-button></paper-icon-button>
-                `
-            : html `
-                  <paper-icon-button
-                    .button="${"forward"}"
-                    icon="mdi:fast-forward"
-                    title="Fast-Forward"
-                    @ha-click="${this._handleTap}"
-                    @ha-hold="${this._handleHold}"
-                    @ha-dblclick=${this._handleDblTap}
-                    .hasDblClick=${this._config.forward &&
-                this._config.forward.dbltap_action &&
-                this._config.forward.dbltap_action.action !== "none"}
-                    .repeat=${this._config.forward &&
-                this._config.forward.hold_action &&
-                ifDefined(this._config.forward.hold_action.repeat)}
-                    .longpress=${longPress()}
-                  ></paper-icon-button>
-                `}
+            ${this._renderButton("reverse", "mdi:rewind", "Rewind")}
+            ${this._renderButton("play", "mdi:play-pause", "Play/Pause")}
+            ${this._renderButton("forward", "mdi:fast-forward", "Fast-Forward")}
           </div>
 
           ${this._config.tv ||
@@ -3434,75 +3107,9 @@ let RokuCard = class RokuCard extends LitElement {
             (this._config.volume_up && this._config.volume_up.show)
             ? html `
                 <div class="row">
-                  ${this._config.volume_mute &&
-                this._config.volume_mute.show === false
-                ? html `
-                        <paper-icon-button></paper-icon-button>
-                      `
-                : html `
-                        <paper-icon-button
-                          .button="${"volume_mute"}"
-                          icon="mdi:volume-mute"
-                          title="Volume Mute"
-                          @ha-click="${this._handleTap}"
-                          @ha-hold="${this._handleHold}"
-                          @ha-dblclick=${this._handleDblTap}
-                          .hasDblClick=${this._config.volume_mute &&
-                    this._config.volume_mute.dbltap_action &&
-                    this._config.volume_mute.dbltap_action.action !==
-                        "none"}
-                          .repeat=${this._config.volume_mute &&
-                    this._config.volume_mute.hold_action &&
-                    ifDefined(this._config.volume_mute.hold_action.repeat)}
-                          .longpress=${longPress()}
-                        ></paper-icon-button>
-                      `}
-                  ${this._config.volume_down &&
-                this._config.volume_down.show === false
-                ? html `
-                        <paper-icon-button></paper-icon-button>
-                      `
-                : html `
-                        <paper-icon-button
-                          .button="${"volume_down"}"
-                          icon="mdi:volume-minus"
-                          title="Volume Down"
-                          @ha-click="${this._handleTap}"
-                          @ha-hold="${this._handleHold}"
-                          @ha-dblclick=${this._handleDblTap}
-                          .hasDblClick=${this._config.volume_down &&
-                    this._config.volume_down.dbltap_action &&
-                    this._config.volume_down.dbltap_action.action !==
-                        "none"}
-                          .repeat=${this._config.volume_down &&
-                    this._config.volume_down.hold_action &&
-                    ifDefined(this._config.volume_down.hold_action.repeat)}
-                          .longpress=${longPress()}
-                        ></paper-icon-button>
-                      `}
-                  ${this._config.volume_up &&
-                this._config.volume_up.show === false
-                ? html `
-                        <paper-icon-button></paper-icon-button>
-                      `
-                : html `
-                        <paper-icon-button
-                          .button="${"volume_up"}"
-                          icon="mdi:volume-plus"
-                          title="Volume Up"
-                          @ha-click="${this._handleTap}"
-                          @ha-hold="${this._handleHold}"
-                          @ha-dblclick=${this._handleDblTap}
-                          .hasDblClick=${this._config.volume_up &&
-                    this._config.volume_up.dbltap_action &&
-                    this._config.volume_up.dbltap_action.action !==
-                        "none"}
-                          .repeat=${this._config.volume_up &&
-                    this._config.volume_up.hold_action &&
-                    ifDefined(this._config.volume_up.hold_action.repeat)}
-                          .longpress=${longPress()}
-                        ></paper-icon-button>
-                      `}
+                  ${this._renderButton("volume_mute", "mdi:volume-mute", "Volume Mute")}
+                  ${this._renderButton("volume_down", "mdi:volume-minus", "Volume Down")}
+                  ${this._renderButton("volume_up", "mdi:volume-plus", "Volume Up")}
                 </div>
               `
             : ""}
@@ -3516,7 +3123,7 @@ let RokuCard = class RokuCard extends LitElement {
         }
         const oldHass = changedProps.get("hass");
         if (!oldHass || oldHass.themes !== this.hass.themes) {
-            h(this, this.hass.themes, this._config.theme);
+            m(this, this.hass.themes, this._config.theme);
         }
     }
     static get styles() {
@@ -3537,46 +3144,81 @@ let RokuCard = class RokuCard extends LitElement {
         display: flex;
         padding: 8px 36px 8px 36px;
         justify-content: space-evenly;
+        align-items: center;
+      }
+      .warning {
+        display: block;
+        color: black;
+        background-color: #fce588;
+        padding: 8px;
+      }
+      .app {
+        flex-grow: 3;
+        font-size: 20px;
       }
     `;
     }
-    launchApp(e) {
-        const target = e.currentTarget;
-        this.hass.callService("media_player", "select_source", {
-            entity_id: this._config.entity,
-            source: target.app
-        });
+    _renderImage(index) {
+        return this._config.apps && this._config.apps.length > index
+            ? html `
+          <img
+            src=${this._config.apps[index].image || ""}
+            .app=${this._config.apps[index].app}
+            .config=${this._config.apps[index]}
+            @action=${this._handleAction}
+            .actionHandler=${actionHandler({
+                hasHold: G(this._config.apps[index].hold_action),
+                hasDoubleTap: G(this._config.apps[index].double_tap_action)
+            })}
+          />
+        `
+            : html `
+          <paper-icon-button></paper-icon-button>
+        `;
     }
-    _handleTap(ev) {
+    _renderButton(button, icon, title) {
+        return this._config[button] && this._config[button].show === false
+            ? html `
+          <paper-icon-button></paper-icon-button>
+        `
+            : html `
+          <paper-icon-button
+            .button=${button}
+            icon=${icon}
+            title=${title}
+            @action=${this._handleAction}
+            .actionHandler=${actionHandler({
+                hasHold: this._config[button] &&
+                    G(this._config[button].hold_action),
+                hasDoubleTap: this._config[button] &&
+                    G(this._config[button].double_tap_action)
+            })}
+          ></paper-icon-button>
+        `;
+    }
+    _handleAction(ev) {
         const button = ev.currentTarget.button;
-        console.log(button);
-        const config = this._config[button];
-        console.log(config);
-        let remote = this._config.remote
+        const config = this._config[button] || ev.currentTarget.config;
+        const app = ev.currentTarget.app;
+        const remote = this._config.remote
             ? this._config.remote
             : "remote." + this._config.entity.split(".")[1];
-        P(this, this.hass, config && config.tap_action
+        W(this, this.hass, config && config.tap_action
             ? config
-            : {
+            : app
+                ? Object.assign({ tap_action: {
+                        action: "call-service",
+                        service: "media_player.select_source",
+                        service_data: {
+                            entity_id: this._config.entity,
+                            source: app
+                        }
+                    } }, config) : {
                 tap_action: Object.assign({ service_data: {
                         command: button,
                         entity_id: remote
                     } }, defaultRemoteAction)
-            }, false, false);
-    }
-    _handleHold(ev) {
-        const button = ev.currentTarget.button;
-        const config = this._config[button];
-        if (config && config.hold_action) {
-            P(this, this.hass, config, true, false);
-        }
-    }
-    _handleDblTap(ev) {
-        const button = ev.currentTarget.button;
-        const config = this._config[button];
-        if (config && config.dbltap_action) {
-            P(this, this.hass, config, false, true);
-        }
+            }, ev.detail.action);
     }
 };
 __decorate([

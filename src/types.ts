@@ -29,10 +29,13 @@ export interface ActionButtonConfig {
   show?: boolean;
   tap_action?: ActionConfig;
   hold_action?: ActionConfig;
-  dbltap_action?: ActionConfig;
+  double_tap_action?: ActionConfig;
 }
 
 export interface AppConfig {
-  icon?: string;
-  id?: string;
+  app?: string;
+  image?: string;
+  tap_action?: ActionConfig;
+  hold_action?: ActionConfig;
+  double_tap_action?: ActionConfig;
 }
