@@ -89,7 +89,7 @@ This card is for [Lovelace](https://www.home-assistant.io/lovelace) on [Home Ass
 
 ```yaml
 resources:
-    url: /community_plugin/roku-card/roku-card.js
+    url: /local/roku-card.js
     type: module
 ```
 
