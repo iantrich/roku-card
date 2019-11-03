@@ -87,6 +87,12 @@ This card is for [Lovelace](https://www.home-assistant.io/lovelace) on [Home Ass
 
 [Follow this guide](https://github.com/thomasloven/hass-config/wiki/Lovelace-Plugins)
 
+```yaml
+resources:
+    url: /community_plugin/roku-card/roku-card.js
+    type: module
+```
+
 ## Usage
 
 ```yaml
