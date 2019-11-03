@@ -25,6 +25,16 @@ This card is for [Lovelace](https://www.home-assistant.io/lovelace) on [Home Ass
 
 ![example](example.png)
 
+## Installation
+
+Use [HACS](https://hacs.xyz) or follow this [guide](https://github.com/thomasloven/hass-config/wiki/Lovelace-Plugins)
+
+```yaml
+resources:
+    url: /local/roku-card.js
+    type: module
+```
+
 ## Options
 
 | Name        | Type      | Requirement  | Description                                                                |
@@ -84,16 +94,6 @@ This card is for [Lovelace](https://www.home-assistant.io/lovelace) on [Home Ass
 | `haptic`          | `string` | none     | `success`, `warning`, `failure`, `light`, `medium`, `heavy`, `selection` | Haptic feedback for the [Beta IOS App](http://home-assistant.io/ios/beta)                                 |
 | `repeat`          | `number` | none     | eg: `500`                                                                | How often to repeat the `hold_action` in milliseconds.                                                    |
 
-## Installation
-
-Use [HACS](https://hacs.xyz) or follow this [guide](https://github.com/thomasloven/hass-config/wiki/Lovelace-Plugins)
-
-```yaml
-resources:
-    url: /local/roku-card.js
-    type: module
-```
-
 ## Usage
 
 ```yaml
@@ -127,6 +127,12 @@ volume_down:
 ```
 
 [Troubleshooting](https://github.com/thomasloven/hass-config/wiki/Lovelace-Plugins)
+
+## Developers
+
+Fork and then clone the repo to your local machine. From the cloned directory run
+
+`npm install && npm run build`
 
 [commits-shield]: https://img.shields.io/github/commit-activity/y/iantrich/roku-card.svg?style=for-the-badge
 [commits]: https://github.com/iantrich/roku-card/commits/master

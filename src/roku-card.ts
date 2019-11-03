@@ -16,11 +16,19 @@ import {
 
 import { RokuCardConfig } from "./types";
 import { actionHandler } from "./action-handler-directive";
+import { CARD_VERSION } from "./const";
 
 const defaultRemoteAction = {
   action: "call-service",
   service: "remote.send_command"
 };
+
+/* eslint no-console: 0 */
+console.info(
+  `%c  ROKU-CARD     \n%c  Version ${CARD_VERSION} `,
+  'color: orange; font-weight: bold; background: black',
+  'color: white; font-weight: bold; background: dimgray',
+);
 
 @customElement("roku-card")
 class RokuCard extends LitElement {

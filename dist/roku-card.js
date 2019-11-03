@@ -3035,10 +3035,14 @@ const actionHandler = directive((options = {}) => (part) => {
     actionHandlerBind(part.committer.element, options);
 });
 
+const CARD_VERSION = '1.0.3';
+
 const defaultRemoteAction = {
     action: "call-service",
     service: "remote.send_command"
 };
+/* eslint no-console: 0 */
+console.info(`%c  ROKU-CARD     \n%c  Version ${CARD_VERSION} `, 'color: orange; font-weight: bold; background: black', 'color: white; font-weight: bold; background: dimgray');
 let RokuCard = class RokuCard extends LitElement {
     getCardSize() {
         return 7;
