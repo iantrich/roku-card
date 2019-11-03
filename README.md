@@ -4,6 +4,7 @@
 
 [![GitHub Release][releases-shield]][releases]
 [![License][license-shield]](LICENSE.md)
+[![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg?style=for-the-badge)](https://github.com/custom-components/hacs)
 
 ![Project Maintenance][maintenance-shield]
 [![GitHub Activity][commits-shield]][commits]
@@ -85,7 +86,7 @@ This card is for [Lovelace](https://www.home-assistant.io/lovelace) on [Home Ass
 
 ## Installation
 
-[Follow this guide](https://github.com/thomasloven/hass-config/wiki/Lovelace-Plugins)
+Use [HACS](https://hacs.xyz) or follow this [guide](https://github.com/thomasloven/hass-config/wiki/Lovelace-Plugins)
 
 ```yaml
 resources:
