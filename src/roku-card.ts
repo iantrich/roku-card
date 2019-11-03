@@ -61,7 +61,7 @@ class RokuCard extends LitElement {
     if (!stateObj) {
       return html`
         <ha-card>
-          <div class="warning">Show Warning</div>
+          <div class="warning">Entity Unavailable</div>
         </ha-card>
       `;
     }
