@@ -12,6 +12,7 @@ interface ActionHandler extends HTMLElement {
 }
 interface ActionHandlerElement extends Element {
   actionHandler?: boolean;
+  isRepeating?: boolean | undefined;
 }
 
 class ActionHandler extends HTMLElement implements ActionHandler {
@@ -22,6 +23,7 @@ class ActionHandler extends HTMLElement implements ActionHandler {
   protected cooldownStart: boolean;
   protected cooldownEnd: boolean;
   private dblClickTimeout: number | undefined;
+  private repeatTimeout: NodeJS.Timeout | undefined;
 
   constructor() {
     super();
@@ -104,6 +106,12 @@ class ActionHandler extends HTMLElement implements ActionHandler {
         this.timer = window.setTimeout(() => {
           this.startAnimation(x, y);
           this.held = true;
+          if (options.repeat && !element.isRepeating) {
+            element.isRepeating = true;
+            this.repeatTimeout = setInterval(() => {
+              fireEvent(element as HTMLElement, "action", { action: "hold" });
+            }, options.repeat);
+          }
         }, this.holdTime);
       }
 
@@ -117,13 +125,23 @@ class ActionHandler extends HTMLElement implements ActionHandler {
         (["touchend", "touchcancel"].includes(ev.type) &&
           this.timer === undefined)
       ) {
+        if (element.isRepeating && this.repeatTimeout) {
+          clearInterval(this.repeatTimeout);
+          element.isRepeating = false;
+        }
         return;
       }
       clearTimeout(this.timer);
+      if (element.isRepeating && this.repeatTimeout) {
+        clearInterval(this.repeatTimeout);
+      }
+      element.isRepeating = false;
       this.stopAnimation();
       this.timer = undefined;
       if (this.held) {
-        fireEvent(element as HTMLElement, "action", { action: "hold" });
+        if (!options.repeat) {
+          fireEvent(element as HTMLElement, "action", { action: "hold" });
+        }
       } else if (options.hasDoubleTap) {
         if ((ev as MouseEvent).detail === 1) {
           this.dblClickTimeout = window.setTimeout(() => {

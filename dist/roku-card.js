@@ -2951,6 +2951,12 @@ class ActionHandler extends HTMLElement {
                 this.timer = window.setTimeout(() => {
                     this.startAnimation(x, y);
                     this.held = true;
+                    if (options.repeat && !element.isRepeating) {
+                        element.isRepeating = true;
+                        this.repeatTimeout = setInterval(() => {
+                            A(element, "action", { action: "hold" });
+                        }, options.repeat);
+                    }
                 }, this.holdTime);
             }
             this.cooldownStart = true;
@@ -2960,13 +2966,23 @@ class ActionHandler extends HTMLElement {
             if (this.cooldownEnd ||
                 (["touchend", "touchcancel"].includes(ev.type) &&
                     this.timer === undefined)) {
+                if (element.isRepeating && this.repeatTimeout) {
+                    clearInterval(this.repeatTimeout);
+                    element.isRepeating = false;
+                }
                 return;
             }
             clearTimeout(this.timer);
+            if (element.isRepeating && this.repeatTimeout) {
+                clearInterval(this.repeatTimeout);
+            }
+            element.isRepeating = false;
             this.stopAnimation();
             this.timer = undefined;
             if (this.held) {
-                A(element, "action", { action: "hold" });
+                if (!options.repeat) {
+                    A(element, "action", { action: "hold" });
+                }
             }
             else if (options.hasDoubleTap) {
                 if (ev.detail === 1) {
@@ -3035,14 +3051,14 @@ const actionHandler = directive((options = {}) => (part) => {
     actionHandlerBind(part.committer.element, options);
 });
 
-const CARD_VERSION = '1.0.3';
+const CARD_VERSION = '1.0.4';
 
 const defaultRemoteAction = {
     action: "call-service",
     service: "remote.send_command"
 };
 /* eslint no-console: 0 */
-console.info(`%c  ROKU-CARD     \n%c  Version ${CARD_VERSION} `, 'color: orange; font-weight: bold; background: black', 'color: white; font-weight: bold; background: dimgray');
+console.info(`%c  ROKU-CARD     \n%c  Version ${CARD_VERSION} `, "color: orange; font-weight: bold; background: black", "color: white; font-weight: bold; background: dimgray");
 let RokuCard = class RokuCard extends LitElement {
     getCardSize() {
         return 7;
@@ -3062,7 +3078,7 @@ let RokuCard = class RokuCard extends LitElement {
         if (!stateObj) {
             return html `
         <ha-card>
-          <div class="warning">Show Warning</div>
+          <div class="warning">Entity Unavailable</div>
         </ha-card>
       `;
         }
@@ -3172,7 +3188,10 @@ let RokuCard = class RokuCard extends LitElement {
             @action=${this._handleAction}
             .actionHandler=${actionHandler({
                 hasHold: G(this._config.apps[index].hold_action),
-                hasDoubleTap: G(this._config.apps[index].double_tap_action)
+                hasDoubleTap: G(this._config.apps[index].double_tap_action),
+                repeat: this._config.apps[index].hold_action
+                    ? this._config.apps[index].hold_action.repeat
+                    : undefined
             })}
           />
         `
@@ -3181,7 +3200,8 @@ let RokuCard = class RokuCard extends LitElement {
         `;
     }
     _renderButton(button, icon, title) {
-        return this._config[button] && this._config[button].show === false
+        const config = this._config[button];
+        return config && config.show === false
             ? html `
           <paper-icon-button></paper-icon-button>
         `
@@ -3192,10 +3212,11 @@ let RokuCard = class RokuCard extends LitElement {
             title=${title}
             @action=${this._handleAction}
             .actionHandler=${actionHandler({
-                hasHold: this._config[button] &&
-                    G(this._config[button].hold_action),
-                hasDoubleTap: this._config[button] &&
-                    G(this._config[button].double_tap_action)
+                hasHold: config && G(config.hold_action),
+                hasDoubleTap: config && G(config.double_tap_action),
+                repeat: config && config.hold_action
+                    ? config.hold_action.repeat
+                    : undefined
             })}
           ></paper-icon-button>
         `;
@@ -3207,22 +3228,18 @@ let RokuCard = class RokuCard extends LitElement {
         const remote = this._config.remote
             ? this._config.remote
             : "remote." + this._config.entity.split(".")[1];
-        W(this, this.hass, config && config.tap_action
-            ? config
-            : app
-                ? Object.assign({ tap_action: {
-                        action: "call-service",
-                        service: "media_player.select_source",
-                        service_data: {
-                            entity_id: this._config.entity,
-                            source: app
-                        }
-                    } }, config) : {
-                tap_action: Object.assign({ service_data: {
-                        command: button,
-                        entity_id: remote
-                    } }, defaultRemoteAction)
-            }, ev.detail.action);
+        W(this, this.hass, app
+            ? Object.assign({ tap_action: {
+                    action: "call-service",
+                    service: "media_player.select_source",
+                    service_data: {
+                        entity_id: this._config.entity,
+                        source: app
+                    }
+                } }, config) : Object.assign({ tap_action: Object.assign({ service_data: {
+                    command: button,
+                    entity_id: remote
+                } }, defaultRemoteAction) }, config), ev.detail.action);
     }
 };
 __decorate([

@@ -26,8 +26,8 @@ const defaultRemoteAction = {
 /* eslint no-console: 0 */
 console.info(
   `%c  ROKU-CARD     \n%c  Version ${CARD_VERSION} `,
-  'color: orange; font-weight: bold; background: black',
-  'color: white; font-weight: bold; background: dimgray',
+  "color: orange; font-weight: bold; background: black",
+  "color: white; font-weight: bold; background: dimgray"
 );
 
 @customElement("roku-card")
@@ -194,7 +194,10 @@ class RokuCard extends LitElement {
               hasHold: hasAction(this._config!.apps[index].hold_action),
               hasDoubleTap: hasAction(
                 this._config!.apps[index].double_tap_action
-              )
+              ),
+              repeat: this._config!.apps[index].hold_action
+                ? this._config!.apps[index].hold_action!.repeat
+                : undefined
             })}
           />
         `
@@ -208,7 +211,8 @@ class RokuCard extends LitElement {
     icon: string,
     title: string
   ): TemplateResult {
-    return this._config![button] && this._config![button].show === false
+    const config = this._config![button];
+    return config && config.show === false
       ? html`
           <paper-icon-button></paper-icon-button>
         `
@@ -219,12 +223,12 @@ class RokuCard extends LitElement {
             title=${title}
             @action=${this._handleAction}
             .actionHandler=${actionHandler({
-              hasHold:
-                this._config![button] &&
-                hasAction(this._config![button].hold_action),
-              hasDoubleTap:
-                this._config![button] &&
-                hasAction(this._config![button].double_tap_action)
+              hasHold: config && hasAction(config.hold_action),
+              hasDoubleTap: config && hasAction(config.double_tap_action),
+              repeat:
+                config && config.hold_action
+                  ? config.hold_action.repeat
+                  : undefined
             })}
           ></paper-icon-button>
         `;
@@ -241,9 +245,7 @@ class RokuCard extends LitElement {
     handleAction(
       this,
       this.hass!,
-      config && config.tap_action
-        ? config
-        : app
+      app
         ? {
             tap_action: {
               action: "call-service",
@@ -262,7 +264,8 @@ class RokuCard extends LitElement {
                 entity_id: remote
               },
               ...defaultRemoteAction
-            }
+            },
+            ...config
           },
       ev.detail.action!
     );
