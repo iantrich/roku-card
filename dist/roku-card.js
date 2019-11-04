@@ -3051,7 +3051,7 @@ const actionHandler = directive((options = {}) => (part) => {
     actionHandlerBind(part.committer.element, options);
 });
 
-const CARD_VERSION = '1.0.4';
+const CARD_VERSION = '1.0.5';
 
 const defaultRemoteAction = {
     action: "call-service",
@@ -3064,8 +3064,8 @@ let RokuCard = class RokuCard extends LitElement {
         return 7;
     }
     setConfig(config) {
-        if (!config.entity) {
-            console.log("Invalid configuration");
+        if (!config.entity && !config.remote) {
+            console.log("Invalid configuration. If no entity provided, you'll need to provide a remote entity");
             return;
         }
         this._config = Object.assign({ theme: "default" }, config);
@@ -3075,7 +3075,7 @@ let RokuCard = class RokuCard extends LitElement {
             return html ``;
         }
         const stateObj = this.hass.states[this._config.entity];
-        if (!stateObj) {
+        if (this._config.entity && !stateObj) {
             return html `
         <ha-card>
           <div class="warning">Entity Unavailable</div>
@@ -3086,7 +3086,9 @@ let RokuCard = class RokuCard extends LitElement {
       <ha-card .header="${this._config.name}">
         <div class="remote">
           <div class="row">
-            <div class="app">${stateObj.attributes.app_name}</div>
+            <div class="app">
+              ${stateObj ? stateObj.attributes.app_name : ""}
+            </div>
             ${this._config.tv || (this._config.power && this._config.power.show)
             ? this._renderButton("power", "mdi:power", "Power")
             : ""}
