@@ -1,4 +1,4 @@
-import { ActionConfig } from "custom-card-helpers";
+import { ActionConfig } from 'custom-card-helpers';
 
 export interface RokuCardConfig {
   type: string;
