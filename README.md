@@ -128,12 +128,30 @@ volume_down:
 
 ## Developers
 
-Fork and then clone the repo to your local machine. From the cloned directory run
+1. Fork and clone the repository.
+2. Open the [devcontainer][devcontainer] and run `npm start` when it's ready.
+3. The compiled `.js` file will be accessible on
+   `http://127.0.0.1:5000/roku-card.js`.
+4. On a running Home Assistant installation add this to your Lovelace
+   `resources:`
 
-`npm install && npm run build`
+```yaml
+- url: "http://127.0.0.1:5000/roku-card.js"
+  type: module
+```
+
+_Change "127.0.0.1" to the IP of your development machine._
+
+### Bonus
+
+If you need a fresh test instance you can install a fresh Home Assistant instance inside the devcontainer as well.
+
+1. Run the command `dc start`.
+2. Home Assistant will install and will eventually be running on port `9123`
 
 [commits-shield]: https://img.shields.io/github/commit-activity/y/iantrich/roku-card.svg?style=for-the-badge
 [commits]: https://github.com/iantrich/roku-card/commits/master
+[devcontainer]: https://code.visualstudio.com/docs/remote/containers
 [discord]: https://discord.gg/Qa5fW2R
 [discord-shield]: https://img.shields.io/discord/330944238910963714.svg?style=for-the-badge
 [forum-shield]: https://img.shields.io/badge/community-forum-brightgreen.svg?style=for-the-badge
