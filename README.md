@@ -108,6 +108,7 @@ apps:
       service: media_player.select_source
       service_data:
         source: ESPN
+        entity_id: media_player.basement_roku
 volume_up:
   tap_action:
     action: call-service
