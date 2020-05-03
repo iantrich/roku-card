@@ -162,8 +162,7 @@ export class RokuCard extends LitElement {
             @action=${this._handleAction}
             .actionHandler=${actionHandler({
               hasHold: hasAction(this._config.apps[index].hold_action),
-              hasDoubleTap: hasAction(this._config.apps[index].double_tap_action),
-              repeat: this._config.apps[index].hold_action ? this._config.apps[index].hold_action!.repeat : undefined,
+              hasDoubleClick: hasAction(this._config.apps[index].double_tap_action),
             })}
           />
         `
@@ -187,8 +186,7 @@ export class RokuCard extends LitElement {
               @action=${this._handleAction}
               .actionHandler=${actionHandler({
                 hasHold: config && hasAction(config.hold_action),
-                hasDoubleTap: config && hasAction(config.double_tap_action),
-                repeat: config && config.hold_action ? config.hold_action.repeat : undefined,
+                hasDoubleClick: config && hasAction(config.double_tap_action),
               })}
             ></paper-icon-button>
           `;
