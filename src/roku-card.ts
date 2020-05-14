@@ -125,7 +125,7 @@ export class RokuCard extends LitElement {
         padding: 16px 0px 16px 0px;
       }
       img,
-      paper-icon-button {
+      ha-icon-button {
         width: 64px;
         height: 64px;
         cursor: pointer;
@@ -166,20 +166,16 @@ export class RokuCard extends LitElement {
             })}
           />
         `
-      : html`
-          <paper-icon-button></paper-icon-button>
-        `;
+      : html` <ha-icon-button></ha-icon-button> `;
   }
 
   private _renderButton(button: string, icon: string, title: string): TemplateResult {
     if (this._config) {
       const config = this._config[button];
       return config && config.show === false
-        ? html`
-            <paper-icon-button></paper-icon-button>
-          `
+        ? html` <ha-icon-button></ha-icon-button> `
         : html`
-            <paper-icon-button
+            <ha-icon-button
               .button=${button}
               icon=${icon}
               title=${title}
@@ -188,7 +184,7 @@ export class RokuCard extends LitElement {
                 hasHold: config && hasAction(config.hold_action),
                 hasDoubleClick: config && hasAction(config.double_tap_action),
               })}
-            ></paper-icon-button>
+            ></ha-icon-button>
           `;
     } else {
       return html``;
