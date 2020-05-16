@@ -126,11 +126,15 @@ export class RokuCard extends LitElement {
       }
       img,
       ha-icon-button {
-        width: 64px;
-        height: 64px;
         cursor: pointer;
       }
+      ha-icon-button {
+        --mdc-icon-button-size: 64px;
+        --mdc-icon-size: 48px;
+      }
       img {
+        width: 64px;
+        height: 64px;
         border-radius: 25px;
       }
       .row {
