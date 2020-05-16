@@ -25,6 +25,8 @@ This card is for [Lovelace](https://www.home-assistant.io/lovelace) on [Home Ass
 
 ## Installation
 
+# Version 1.1.0 and above require Home Assistant 0.110.0 or above
+
 Use [HACS](https://hacs.xyz) or follow this [guide](https://github.com/thomasloven/hass-config/wiki/Lovelace-Plugins)
 
 ```yaml
