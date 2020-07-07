@@ -5,3 +5,7 @@ views:
   - cards:
       - type: custom:roku-card
         entity: media_player.office_roku
+        tv: true
+        apps:
+          - app: Netflix
+            icon: mdi:netflix

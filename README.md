@@ -31,8 +31,8 @@ Use [HACS](https://hacs.xyz) or follow this [guide](https://github.com/thomaslov
 
 ```yaml
 resources:
-    url: /local/roku-card.js
-    type: module
+  url: /local/roku-card.js
+  type: module
 ```
 
 ## Options
@@ -68,6 +68,7 @@ resources:
 | ----------------- | -------- | ------------ | ----------------------------------------------------------- |
 | app               | `string` | **Optional** | Name of the source to launch as `tap_action`                |
 | image             | `string` | **Optional** | Path to image to use for app                                |
+| icon              | `string` | **Optional** | mdi icon to use instead of an image for app                 |
 | tap_action        | `map`    | **Optional** | Tap action map [See action options](#action-options)        |
 | hold_action       | `map`    | **Optional** | Hold action map [See action options](#action-options)       |
 | double_tap_action | `map`    | **Optional** | Doulbe Tap action map [See action options](#action-options) |
@@ -97,7 +98,7 @@ resources:
 ## Usage
 
 ```yaml
-type: "custom:roku-card"
+type: 'custom:roku-card'
 entity: media_player.basement_roku
 tv: true
 apps:
@@ -139,7 +140,7 @@ volume_down:
    `resources:`
 
 ```yaml
-- url: "http://127.0.0.1:5000/roku-card.js"
+- url: 'http://127.0.0.1:5000/roku-card.js'
   type: module
 ```
 

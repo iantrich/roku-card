@@ -158,18 +158,31 @@ export class RokuCard extends LitElement {
 
   private _renderImage(index: number): TemplateResult {
     return this._config && this._config.apps && this._config.apps.length > index
-      ? html`
-          <img
-            src=${this._config.apps[index].image || ''}
-            .app=${this._config.apps[index].app}
-            .config=${this._config.apps[index]}
-            @action=${this._handleAction}
-            .actionHandler=${actionHandler({
-              hasHold: hasAction(this._config.apps[index].hold_action),
-              hasDoubleClick: hasAction(this._config.apps[index].double_tap_action),
-            })}
-          />
-        `
+      ? this._config.apps[index].icon
+        ? html`
+            <ha-icon-button
+              .app=${this._config.apps[index].app}
+              icon=${this._config.apps[index].icon!}
+              title=${this._config.apps[index].app!}
+              @action=${this._handleAction}
+              .actionHandler=${actionHandler({
+                hasHold: hasAction(this._config.apps[index].hold_action),
+                hasDoubleClick: hasAction(this._config.apps[index].double_tap_action),
+              })}
+            ></ha-icon-button>
+          `
+        : html`
+            <img
+              src=${this._config.apps[index].image || ''}
+              .app=${this._config.apps[index].app}
+              .config=${this._config.apps[index]}
+              @action=${this._handleAction}
+              .actionHandler=${actionHandler({
+                hasHold: hasAction(this._config.apps[index].hold_action),
+                hasDoubleClick: hasAction(this._config.apps[index].double_tap_action),
+              })}
+            />
+          `
       : html` <ha-icon-button></ha-icon-button> `;
   }
 
