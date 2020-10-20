@@ -57,9 +57,7 @@ export class RokuCard extends LitElement {
       <ha-card .header="${this._config.name}">
         <div class="remote">
           <div class="row">
-            <div class="app">
-              ${stateObj ? stateObj.attributes.app_name : ''}
-            </div>
+            <div class="app">${stateObj ? stateObj.attributes.app_name : ''}</div>
             ${this._config.tv || (this._config.power && this._config.power.show)
               ? this._renderButton('power', 'mdi:power', 'Power')
               : ''}
@@ -162,8 +160,9 @@ export class RokuCard extends LitElement {
         ? html`
             <ha-icon-button
               .app=${this._config.apps[index].app}
-              icon=${this._config.apps[index].icon!}
-              title=${this._config.apps[index].app!}
+              icon=${this._config.apps[index].icon}
+              title=${this._config.apps[index].app}
+              .config=${this._config.apps[index]}
               @action=${this._handleAction}
               .actionHandler=${actionHandler({
                 hasHold: hasAction(this._config.apps[index].hold_action),
