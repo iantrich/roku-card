@@ -164,6 +164,7 @@ export class RokuCard extends LitElement {
               .app=${this._config.apps[index].app}
               icon=${this._config.apps[index].icon!}
               title=${this._config.apps[index].app!}
+              .config=${this._config.apps[index]}
               @action=${this._handleAction}
               .actionHandler=${actionHandler({
                 hasHold: hasAction(this._config.apps[index].hold_action),
