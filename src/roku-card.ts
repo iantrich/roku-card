@@ -1,4 +1,13 @@
-import { html, LitElement, TemplateResult, customElement, property, CSSResult, css } from 'lit-element';
+import {
+  html,
+  LitElement,
+  TemplateResult,
+  customElement,
+  property,
+  CSSResult,
+  css,
+  internalProperty,
+} from 'lit-element';
 import { HomeAssistant, applyThemesOnElement, hasAction, handleClick } from 'custom-card-helpers';
 
 import { RokuCardConfig } from './types';
@@ -19,8 +28,9 @@ console.info(
 
 @customElement('roku-card')
 export class RokuCard extends LitElement {
-  @property() public hass?: HomeAssistant;
-  @property() private _config?: RokuCardConfig;
+  @property({ attribute: false }) public hass?: HomeAssistant;
+
+  @internalProperty() private _config?: RokuCardConfig;
 
   public getCardSize(): number {
     return 7;
@@ -161,8 +171,8 @@ export class RokuCard extends LitElement {
         ? html`
             <ha-icon-button
               .app=${this._config.apps[index].app}
-              icon=${this._config.apps[index].icon}
-              title=${this._config.apps[index].app}
+              .icon=${this._config.apps[index].icon}
+              .title=${this._config.apps[index].app}
               .config=${this._config.apps[index]}
               @action=${this._handleAction}
               .actionHandler=${actionHandler({
