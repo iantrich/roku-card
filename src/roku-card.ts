@@ -1,5 +1,5 @@
 import { html, LitElement, TemplateResult, customElement, property, CSSResult, css } from 'lit-element';
-import { HomeAssistant, applyThemesOnElement, hasAction, handleAction, handleClick } from 'custom-card-helpers';
+import { HomeAssistant, applyThemesOnElement, hasAction, handleClick } from 'custom-card-helpers';
 
 import { RokuCardConfig } from './types';
 import { actionHandler } from './action-handler-directive';
