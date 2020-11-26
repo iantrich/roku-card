@@ -37,30 +37,31 @@ resources:
 
 ## Options
 
-| Name        | Type      | Requirement  | Description                                                                |
-| ----------- | --------- | ------------ | -------------------------------------------------------------------------- |
-| type        | `string`  | **Required** | `custom:roku-card`                                                         |
-| entity      | `string`  | **Required** | `media_player` entity of Roku device                                       |
-| remote      | `string`  | **Optional** | `remote` entity of Roku device. Default assumed named like `entity`        |
-| name        | `string`  | **Optional** | Card name                                                                  |
-| theme       | `string`  | **Optional** | Card theme                                                                 |
-| tv          | `boolean` | **Optional** | If `true` shows volume and power buttons. Default `false`                  |
-| power       | `map`     | **Optional** | Button configuration for power [See button options](#button-options)       |
-| volume_up   | `map`     | **Optional** | Button configuration for volume_up [See button options](#button-options)   |
-| volume_down | `map`     | **Optional** | Button configuration for volume_down [See button options](#button-options) |
-| volume_mute | `map`     | **Optional** | Button configuration for volume_mute [See button options](#button-options) |
-| up          | `map`     | **Optional** | Button configuration for up [See button options](#button-options)          |
-| down        | `map`     | **Optional** | Button configuration for down [See button options](#button-options)        |
-| left        | `map`     | **Optional** | Button configuration for left [See button options](#button-options)        |
-| right       | `map`     | **Optional** | Button configuration for right [See button options](#button-options)       |
-| home        | `map`     | **Optional** | Button configuration for home [See button options](#button-options)        |
-| info        | `map`     | **Optional** | Button configuration for info [See button options](#button-options)        |
-| back        | `map`     | **Optional** | Button configuration for back [See button options](#button-options)        |
-| select      | `map`     | **Optional** | Button configuration for select [See button options](#button-options)      |
-| reverse     | `map`     | **Optional** | Button configuration for reverse [See button options](#button-options)     |
-| play        | `map`     | **Optional** | Button configuration for play [See button options](#button-options)        |
-| forward     | `map`     | **Optional** | Button configuration for forward [See button options](#button-options)     |
-| apps        | `map`     | **Optional** | List of app shortcuts [See app options](#app-options)                      |
+| Name        | Type      | Requirement  | Description                                                                                            |
+| ----------- | --------- | ------------ | ------------------------------------------------------------------------------------------------------ |
+| type        | `string`  | **Required** | `custom:roku-card`                                                                                     |
+| entity      | `string`  | **Required** | `media_player` entity of Roku device                                                                   |
+| remote      | `string`  | **Optional** | `remote` entity of Roku device. Default assumed named like `entity`                                    |
+| name        | `string`  | **Optional** | Card name                                                                                              |
+| theme       | `string`  | **Optional** | Card theme                                                                                             |
+| tv          | `boolean` | **Optional** | If `true` shows volume and power buttons. Default `false`                                              |
+| power       | `map`     | **Optional** | Button configuration for power [See button options](#button-options)                                   |
+| volume_up   | `map`     | **Optional** | Button configuration for volume_up [See button options](#button-options)                               |
+| volume_down | `map`     | **Optional** | Button configuration for volume_down [See button options](#button-options)                             |
+| volume_mute | `map`     | **Optional** | Button configuration for volume_mute [See button options](#button-options)                             |
+| up          | `map`     | **Optional** | Button configuration for up [See button options](#button-options)                                      |
+| down        | `map`     | **Optional** | Button configuration for down [See button options](#button-options)                                    |
+| left        | `map`     | **Optional** | Button configuration for left [See button options](#button-options)                                    |
+| right       | `map`     | **Optional** | Button configuration for right [See button options](#button-options)                                   |
+| home        | `map`     | **Optional** | Button configuration for home [See button options](#button-options)                                    |
+| info        | `map`     | **Optional** | Button configuration for info [See button options](#button-options)                                    |
+| back        | `map`     | **Optional** | Button configuration for back [See button options](#button-options)                                    |
+| select      | `map`     | **Optional** | Button configuration for select [See button options](#button-options)                                  |
+| reverse     | `map`     | **Optional** | Button configuration for reverse [See button options](#button-options)                                 |
+| play        | `map`     | **Optional** | Button configuration for play [See button options](#button-options)                                    |
+| forward     | `map`     | **Optional** | Button configuration for forward [See button options](#button-options)                                 |
+| apps        | `map`     | **Optional** | List of app shortcuts [See app options](#app-options)                                                  |
+| haptic      | `string`  | **Optional** | `none`, `success`, `warning`, `failure`, `light`, `medium`, `heavy`, `selection`. Default is `success` |
 
 ## app Options
 

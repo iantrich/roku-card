@@ -1,5 +1,5 @@
 import { html, LitElement, TemplateResult, customElement, property, CSSResult, css } from 'lit-element';
-import { HomeAssistant, applyThemesOnElement, hasAction, handleAction } from 'custom-card-helpers';
+import { HomeAssistant, applyThemesOnElement, hasAction, handleAction, handleClick } from 'custom-card-helpers';
 
 import { RokuCardConfig } from './types';
 import { actionHandler } from './action-handler-directive';
@@ -34,6 +34,7 @@ export class RokuCard extends LitElement {
 
     this._config = {
       theme: 'default',
+      haptic: 'success',
       ...config,
     };
   }
@@ -182,14 +183,18 @@ export class RokuCard extends LitElement {
               })}
             />
           `
-      : html` <ha-icon-button></ha-icon-button> `;
+      : html`
+          <ha-icon-button></ha-icon-button>
+        `;
   }
 
   private _renderButton(button: string, icon: string, title: string): TemplateResult {
     if (this._config) {
       const config = this._config[button];
       return config && config.show === false
-        ? html` <ha-icon-button></ha-icon-button> `
+        ? html`
+            <ha-icon-button></ha-icon-button>
+          `
         : html`
             <ha-icon-button
               .button=${button}
@@ -214,12 +219,13 @@ export class RokuCard extends LitElement {
       const app = ev.currentTarget.app;
       const remote = this._config.remote ? this._config.remote : 'remote.' + this._config.entity.split('.')[1];
 
-      handleAction(
+      handleClick(
         this,
         this.hass,
         app
           ? {
               tap_action: {
+                haptic: this._config.haptic,
                 action: 'call-service',
                 service: 'media_player.select_source',
                 service_data: {
@@ -231,6 +237,7 @@ export class RokuCard extends LitElement {
             }
           : {
               tap_action: {
+                haptic: this._config.haptic,
                 service_data: {
                   command: button,
                   entity_id: remote,
@@ -239,7 +246,8 @@ export class RokuCard extends LitElement {
               },
               ...config,
             },
-        ev.detail.action,
+        ev.detail.action === 'hold' ? true : false,
+        ev.detail.action === 'double_tap' ? true : false,
       );
     }
   }

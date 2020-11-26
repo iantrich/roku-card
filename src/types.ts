@@ -23,6 +23,7 @@ export interface RokuCardConfig {
   play: ActionButtonConfig;
   forward: ActionButtonConfig;
   apps?: AppConfig[];
+  haptic?: string;
 }
 
 export interface ActionButtonConfig {
