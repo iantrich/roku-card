@@ -134,10 +134,10 @@ export class RokuCard extends LitElement {
         padding: 16px 0px 16px 0px;
       }
       img,
-      ha-icon-button {
+      ha-icon {
         cursor: pointer;
       }
-      ha-icon-button {
+      ha-icon {
         --mdc-icon-button-size: 64px;
         --mdc-icon-size: 48px;
       }
@@ -171,7 +171,6 @@ export class RokuCard extends LitElement {
         ? html`
             <ha-icon-button
               .app=${this._config.apps[index].app}
-              .icon=${this._config.apps[index].icon}
               .title=${this._config.apps[index].app}
               .config=${this._config.apps[index]}
               @action=${this._handleAction}
@@ -179,7 +178,9 @@ export class RokuCard extends LitElement {
                 hasHold: hasAction(this._config.apps[index].hold_action),
                 hasDoubleClick: hasAction(this._config.apps[index].double_tap_action),
               })}
-            ></ha-icon-button>
+            >
+              <ha-icon .icon=${this._config.apps[index].icon}></ha-icon>
+            </ha-icon-button>
           `
         : html`
             <img
@@ -194,7 +195,7 @@ export class RokuCard extends LitElement {
             />
           `
       : html`
-          <ha-icon-button></ha-icon-button>
+          <ha-icon icon="mdi:none"></ha-icon>
         `;
   }
 
@@ -203,19 +204,20 @@ export class RokuCard extends LitElement {
       const config = this._config[button];
       return config && config.show === false
         ? html`
-            <ha-icon-button></ha-icon-button>
+            <ha-icon icon="mdi:none"></ha-icon>
           `
         : html`
             <ha-icon-button
               .button=${button}
-              icon=${icon}
               title=${title}
               @action=${this._handleAction}
               .actionHandler=${actionHandler({
                 hasHold: config && hasAction(config.hold_action),
                 hasDoubleClick: config && hasAction(config.double_tap_action),
               })}
-            ></ha-icon-button>
+            >
+              <ha-icon .icon=${icon}></ha-icon>
+            </ha-icon-button>
           `;
     } else {
       return html``;
@@ -223,6 +225,7 @@ export class RokuCard extends LitElement {
   }
 
   private _handleAction(ev): void {
+    console.log('click');
     if (this.hass && this._config && ev.detail.action) {
       const button = ev.currentTarget.button;
       const config = this._config[button] || ev.currentTarget.config;
