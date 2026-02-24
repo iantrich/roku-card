@@ -1,3 +1,6 @@
+Archived: Recommend seitching to https://github.com/PRProd/HA-Firemote
+
+
 # 📺 Roku Remote Card
 
 [![GitHub Release][releases-shield]][releases]
